@@ -35,7 +35,7 @@ export function SiteHeader() {
           aria-label="Textile Overseas — home"
         >
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink font-display text-sm text-paper transition-transform duration-200 group-hover:scale-105">
-            IO
+            TO
           </span>
           <span className="leading-none">
             <span className="font-display block text-[15px] tracking-tight text-ink">
