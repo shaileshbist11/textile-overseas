@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { OrderSteps, StageBadge } from "@/components/order-steps";
+import { Media } from "@/components/media";
 import { demoOrders, fabricStock, samplePipeline } from "@/lib/data";
+import { IMAGES, ORDER_IMAGES, unsplash } from "@/lib/images";
 
 const tabs = [
   { id: "orders", label: "Active Order Tracker" },
@@ -87,14 +89,22 @@ export function PortalDashboard() {
 
             <div className="rounded-xl border border-line bg-paper/70 p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="font-mono text-sm font-bold text-copper">{order.id}</p>
-                  <h3 className="font-display mt-1 text-xl tracking-tight text-ink">
-                    {order.style}
-                  </h3>
-                  <p className="mt-1 text-sm text-mute">
-                    {order.buyer} · {order.category}
-                  </p>
+                <div className="flex min-w-0 items-start gap-4">
+                  <Media
+                    src={unsplash(IMAGES[ORDER_IMAGES[order.id]].id, 240, 240)}
+                    alt={IMAGES[ORDER_IMAGES[order.id]].alt}
+                    className="h-20 w-20 shrink-0 rounded-xl"
+                    sizes="80px"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-mono text-sm font-bold text-copper">{order.id}</p>
+                    <h3 className="font-display mt-1 text-xl tracking-tight text-ink">
+                      {order.style}
+                    </h3>
+                    <p className="mt-1 text-sm text-mute">
+                      {order.buyer} · {order.category}
+                    </p>
+                  </div>
                 </div>
                 <div className="text-right">
                   <StageBadge stageIndex={order.stageIndex} />
@@ -102,7 +112,20 @@ export function PortalDashboard() {
                 </div>
               </div>
 
-              <div className="mt-7 rounded-xl bg-white p-5">
+              <div className="relative mt-6">
+                <Media
+                  src={unsplash(IMAGES.factoryFloor.id, 900, 260)}
+                  alt={IMAGES.factoryFloor.alt}
+                  className="h-28 w-full rounded-xl"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  overlay
+                />
+                <p className="absolute bottom-3 left-4 text-xs font-semibold text-white">
+                  Live floor · Ashulia Unit B
+                </p>
+              </div>
+
+              <div className="mt-6 rounded-xl bg-white p-5">
                 <OrderSteps stageIndex={order.stageIndex} />
               </div>
 

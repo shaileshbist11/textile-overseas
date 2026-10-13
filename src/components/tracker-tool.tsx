@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { OrderSteps, StageBadge } from "@/components/order-steps";
 import { CheckIcon } from "@/components/icons";
+import { Media } from "@/components/media";
 import { demoOrders, productionStages } from "@/lib/data";
+import { IMAGES, ORDER_IMAGES, unsplash } from "@/lib/images";
 
 export function TrackerTool() {
   const [query, setQuery] = useState("");
@@ -82,17 +84,38 @@ export function TrackerTool() {
 
       <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_32px_80px_-56px_rgba(15,23,42,0.5)]">
         <div className="flex flex-wrap items-start justify-between gap-4 border-b border-line bg-ink px-6 py-5 text-paper">
-          <div>
-            <p className="font-mono text-sm font-bold text-[#fdba74]">{order.id}</p>
-            <h2 className="font-display mt-1 text-2xl tracking-tight">{order.style}</h2>
-            <p className="mt-1 text-sm text-mute-light">
-              {order.buyer} · {order.units.toLocaleString()} pcs · {order.category}
-            </p>
+          <div className="flex min-w-0 items-start gap-4">
+            <Media
+              src={unsplash(IMAGES[ORDER_IMAGES[order.id]].id, 240, 240)}
+              alt={IMAGES[ORDER_IMAGES[order.id]].alt}
+              className="h-20 w-20 shrink-0 rounded-xl"
+              sizes="80px"
+            />
+            <div className="min-w-0">
+              <p className="font-mono text-sm font-bold text-[#fdba74]">{order.id}</p>
+              <h2 className="font-display mt-1 text-2xl tracking-tight">{order.style}</h2>
+              <p className="mt-1 text-sm text-mute-light">
+                {order.buyer} · {order.units.toLocaleString()} pcs · {order.category}
+              </p>
+            </div>
           </div>
           <div className="text-right">
             <StageBadge stageIndex={order.stageIndex} tone="dark" />
             <p className="mt-2 text-sm text-mute-light">Estimated delivery {order.eta}</p>
           </div>
+        </div>
+
+        <div className="relative">
+          <Media
+            src={unsplash(IMAGES.factoryFloor.id, 1200, 300)}
+            alt={IMAGES.factoryFloor.alt}
+            className="h-32 w-full"
+            sizes="(max-width: 1024px) 100vw, 900px"
+            overlay
+          />
+          <p className="absolute bottom-3 left-6 text-xs font-semibold text-white">
+            Live floor · Ashulia Unit B
+          </p>
         </div>
 
         <div className="bg-paper-2/40 p-6">

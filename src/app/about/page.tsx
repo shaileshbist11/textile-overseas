@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { Media } from "@/components/media";
 import { CtaBand, SectionIntro } from "@/components/ui";
 import { company, markets, stats, timeline } from "@/lib/data";
+import { IMAGES, unsplash } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Founded in 2009 in Dhaka, Inspiration Overseas grew from a four-line knit unit into a vertically integrated garment manufacturer serving 28 countries.",
+    "Founded in 2009 in Dhaka, Textile Overseas grew from a four-line knit unit into a vertically integrated garment manufacturer serving 28 countries.",
 };
 
 export default function AboutPage() {
@@ -19,16 +21,24 @@ export default function AboutPage() {
               title="Seventeen years of saying yes to hard programs — and delivering them on time."
               body={`${company.legalName} was founded in ${company.foundedYear} with four sewing lines and one European partner. Today we operate a multi-unit complex in Ashulia with the discipline of a factory and the responsiveness of a trading house.`}
             />
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line">
-              {stats.map((stat) => (
-                <div key={stat.label} className="bg-paper px-5 py-6">
-                  <dd className="font-display text-3xl tracking-tight text-copper">
-                    {stat.value}
-                  </dd>
-                  <dt className="mt-2 text-xs leading-5 text-mute">{stat.label}</dt>
-                </div>
-              ))}
-            </dl>
+            <div className="space-y-6">
+              <Media
+                src={unsplash(IMAGES.factoryFloor.id, 900, 560)}
+                alt={IMAGES.factoryFloor.alt}
+                className="aspect-[16/10] w-full rounded-xl shadow-[0_28px_60px_-40px_rgba(15,23,42,0.5)]"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="bg-paper px-5 py-6">
+                    <dd className="font-display text-3xl tracking-tight text-copper">
+                      {stat.value}
+                    </dd>
+                    <dt className="mt-2 text-xs leading-5 text-mute">{stat.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </div>
       </section>

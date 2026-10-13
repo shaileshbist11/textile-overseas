@@ -1,6 +1,6 @@
 export const company = {
-  name: "Inspiration Overseas",
-  legalName: "Inspiration Overseas Ltd.",
+  name: "Textile Overseas",
+  legalName: "Textile Overseas Ltd.",
   tagline: "Full-package garment manufacturing for the world's most demanding brands.",
   foundedYear: 2009,
   copyrightYear: 2026,
@@ -374,7 +374,7 @@ export const markets = [
 export const testimonials = [
   {
     quote:
-      "Inspiration Overseas runs our most complicated fleece program — six fabrications, three washes, zero quality escapes in eighteen months. Their sampling team is the fastest we've worked with.",
+      "Textile Overseas runs our most complicated fleece program — six fabrications, three washes, zero quality escapes in eighteen months. Their sampling team is the fastest we've worked with.",
     author: "Head of Sourcing",
     company: "German premium casualwear brand",
   },

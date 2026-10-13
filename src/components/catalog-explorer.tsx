@@ -3,15 +3,10 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { CheckIcon } from "@/components/icons";
+import { Media } from "@/components/media";
 import { useQuoteCart } from "@/components/quote-cart";
 import { catalogCategories, catalogProducts } from "@/lib/data";
-
-const toneCard: Record<string, string> = {
-  clay: "bg-[radial-gradient(140%_140%_at_0%_0%,#e07b2f_0%,#c25e00_50%,#7c3d00_100%)]",
-  navy: "bg-[radial-gradient(140%_140%_at_0%_0%,#475569_0%,#1e293b_50%,#0f172a_100%)]",
-  sage: "bg-[radial-gradient(140%_140%_at_0%_0%,#3f9d63_0%,#15803d_50%,#14532d_100%)]",
-  sand: "bg-[radial-gradient(140%_140%_at_0%_0%,#e2c99b_0%,#c2a063_50%,#8a6c40_100%)]",
-};
+import { IMAGES, PRODUCT_IMAGES, unsplash } from "@/lib/images";
 
 const fabricTypes = ["All fabrics", "Knit", "Woven", "Denim", "Outerwear"] as const;
 const moqFilters = [
@@ -151,21 +146,29 @@ export function CatalogExplorer() {
                 key={product.id}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.5)]"
               >
-                <div className={`relative flex h-36 items-end p-5 text-paper ${toneCard[product.tone]}`}>
-                  <span
-                    className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_8px),repeating-linear-gradient(0deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_8px)]"
-                    aria-hidden
+                <div className="relative h-44 w-full">
+                  <Media
+                    src={unsplash(IMAGES[PRODUCT_IMAGES[product.id]].id, 700, 440)}
+                    alt={IMAGES[PRODUCT_IMAGES[product.id]].alt}
+                    className="h-full w-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    overlay
                   />
-                  <div className="relative flex w-full items-end justify-between gap-3">
-                    <div>
-                      <p className="font-mono text-[11px] font-bold text-white/70">{product.id}</p>
-                      <h3 className="font-display mt-0.5 text-lg leading-tight tracking-tight">
-                        {product.name}
-                      </h3>
+                  <div className="absolute inset-0 flex items-end p-5 text-paper">
+                    <div className="relative flex w-full items-end justify-between gap-3">
+                      <div>
+                        <p className="font-mono text-[11px] font-bold text-white/70">
+                          {product.id}
+                        </p>
+                        <h3 className="font-display mt-0.5 text-lg leading-tight tracking-tight">
+                          {product.name}
+                        </h3>
+                      </div>
+                      <span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
+                        {product.category}
+                      </span>
                     </div>
-                    <span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider">
-                      {product.category}
-                    </span>
                   </div>
                 </div>
 

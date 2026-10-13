@@ -7,8 +7,10 @@ import {
   ScissorsIcon,
   ShieldIcon,
 } from "@/components/icons";
+import { Media } from "@/components/media";
 import { ButtonLink, CtaBand, FeatureList, SectionIntro } from "@/components/ui";
 import { capabilities, machinery, process } from "@/lib/data";
+import { CAPABILITY_IMAGES, IMAGES, unsplash } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Manufacturing Capabilities",
@@ -62,16 +64,31 @@ export default function CapabilitiesPage() {
           title="Every capability a full-package program needs."
           body="We take programs at any stage — FAB (fabric only), CMT (cut-make-trim) or full FOB with fabric, trims, washing and export documentation."
         />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((cap) => {
             const Icon = iconMap[cap.icon];
+            const img = IMAGES[CAPABILITY_IMAGES[cap.title]];
             return (
-              <article key={cap.title} className="bg-paper p-8">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-copper/10 text-copper">
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
-                <h2 className="font-display mt-5 text-xl tracking-tight text-ink">{cap.title}</h2>
-                <p className="mt-2.5 text-sm leading-6 text-mute">{cap.text}</p>
+              <article
+                key={cap.title}
+                className="group overflow-hidden rounded-xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.5)]"
+              >
+                <Media
+                  src={unsplash(img.id, 700, 440)}
+                  alt={img.alt}
+                  className="aspect-[16/10] w-full"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="p-8">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-copper/10 text-copper">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h2 className="font-display mt-5 text-xl tracking-tight text-ink">
+                    {cap.title}
+                  </h2>
+                  <p className="mt-2.5 text-sm leading-6 text-mute">{cap.text}</p>
+                </div>
               </article>
             );
           })}

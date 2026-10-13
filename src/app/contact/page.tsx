@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { ClockIcon, MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
 import { FactoryTourForm } from "@/components/factory-tour-form";
 import { InquiryForm } from "@/components/inquiry-form";
+import { Media } from "@/components/media";
 import { Eyebrow, SectionIntro } from "@/components/ui";
 import { company } from "@/lib/data";
+import { IMAGES, unsplash } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Contact & Request a Quote",
   description:
-    "Send a tech pack or program brief to Inspiration Overseas merchandising, or schedule a factory tour at our Ashulia complex. FOB costing guidance within 48 hours.",
+    "Send a tech pack or program brief to Textile Overseas merchandising, or schedule a factory tour at our Ashulia complex. FOB costing guidance within 48 hours.",
 };
 
 const faqs = [
@@ -143,12 +145,29 @@ export default function ContactPage() {
       </section>
 
       <section id="tour" className="scroll-mt-20 border-t border-line">
+        <div className="relative">
+          <Media
+            src={unsplash(IMAGES.factoryFloor.id, 1600, 500)}
+            alt={IMAGES.factoryFloor.alt}
+            className="h-56 w-full sm:h-72"
+            sizes="100vw"
+            overlay
+          />
+          <div className="absolute inset-0 flex items-end">
+            <div className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6">
+              <p className="eyebrow text-[#fdba74]">Factory visits</p>
+              <h2 className="font-display mt-2 max-w-2xl text-3xl leading-tight tracking-tight text-paper text-balance sm:text-4xl">
+                Schedule a factory tour at our Ashulia complex.
+              </h2>
+            </div>
+          </div>
+        </div>
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-20">
           <div>
             <SectionIntro
-              eyebrow="Factory visits"
-              title="Schedule a factory tour at our Ashulia complex."
-              body="Walk the cutting, stitching, quality and finishing floors with a merchandiser and compliance officer. Visits run Sunday–Thursday, 10:00–16:00 BST, with 48 hours' notice."
+              eyebrow="What you'll see"
+              title="Walk every floor, not just the showroom."
+              body="Cutting, stitching, quality and finishing floors with a merchandiser and compliance officer. Visits run Sunday–Thursday, 10:00–16:00 BST, with 48 hours' notice."
             />
             <ul className="mt-8 space-y-3 text-sm text-mute">
               {[

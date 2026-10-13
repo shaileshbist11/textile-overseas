@@ -24,8 +24,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://inspirationoverseas.demo"),
   title: {
-    default: "Inspiration Overseas — Apparel Manufacturing & Global Export",
-    template: "%s · Inspiration Overseas",
+    default: "Textile Overseas — Apparel Manufacturing & Global Export",
+    template: "%s · Textile Overseas",
   },
   description:
     "End-to-end apparel manufacturing and global export solutions. 500K+ monthly capacity, live production tracking, digital catalog and instant tech-pack quoting.",
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
     "private label clothing",
   ],
   openGraph: {
-    title: "Inspiration Overseas — Apparel Manufacturing & Global Export",
+    title: "Textile Overseas — Apparel Manufacturing & Global Export",
     description:
       "Transforming high-fashion concepts into bulk production with precision stitching, ethical manufacturing, and seamless global logistics.",
     type: "website",
-    siteName: "Inspiration Overseas",
+    siteName: "Textile Overseas",
   },
 };
 

@@ -32,14 +32,14 @@ export function SiteHeader() {
           href="/"
           onClick={() => setOpen(false)}
           className="group flex shrink-0 items-center gap-2.5"
-          aria-label="Inspiration Overseas — home"
+          aria-label="Textile Overseas — home"
         >
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink font-display text-sm text-paper transition-transform duration-200 group-hover:scale-105">
             IO
           </span>
           <span className="leading-none">
             <span className="font-display block text-[15px] tracking-tight text-ink">
-              Inspiration Overseas
+              Textile Overseas
             </span>
             <span className="mt-0.5 block text-[9px] font-semibold uppercase tracking-[0.16em] text-mute">
               Apparel Manufacturing &amp; Export

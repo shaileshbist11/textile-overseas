@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Media } from "@/components/media";
 import { CertStrip, CtaBand, SectionIntro } from "@/components/ui";
+import { IMAGES, unsplash, type ImageKey } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Sustainability",
@@ -12,31 +14,37 @@ const initiatives = [
     tag: "Chemicals",
     title: "ZDHC MRSL Level 3 chemistry",
     text: "All dyeing and washing partners are ZDHC gateway-certified. We hold a quarterly chemical inventory and audit formulations against the Manufacturing Restricted Substances List.",
+    image: "whiteRack" as ImageKey,
   },
   {
     tag: "Water",
     title: "In-house ETP · 450 m³/day",
     text: "Our effluent treatment plant runs alongside production, with continuous monitoring of pH, BOD and COD. Sludge is dried and disposed through licensed handlers.",
+    image: "greenTees" as ImageKey,
   },
   {
     tag: "Energy",
     title: "1.2 MW rooftop solar",
     text: "Solar now covers roughly 22% of common-services load. LED retrofits and compressor audits cut facility energy intensity by 18% since 2022.",
+    image: "factoryFloor" as ImageKey,
   },
   {
     tag: "Materials",
     title: "GOTS & GRS certified supply",
     text: "Organic cotton, recycled polyester and recycled nylon programs are fully certified chain-of-custody, with transaction certificates issued per shipment.",
+    image: "organicRack" as ImageKey,
   },
   {
     tag: "People",
     title: "Fair wages & worker voice",
     text: "Wages benchmarked above the national minimum with a standing worker committee, grievance hotline and documented remediation workflow.",
+    image: "stitching" as ImageKey,
   },
   {
     tag: "Transparency",
     title: "Open books for buyers",
     text: "Higg FEM scores, audit reports and chemical inventories are shared with brand partners under NDA — usually within one business day of request.",
+    image: "designStudio" as ImageKey,
   },
 ] as const;
 
@@ -56,12 +64,20 @@ export default function SustainabilityPage() {
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-6 py-16 lg:py-24">
-          <SectionIntro
-            tone="light"
-            eyebrow="Sustainability & compliance"
-            title="Sustainability is an audit trail, not a landing page."
-            body="We keep the certifications, the chemistry records and the utility data ready — because your compliance team will ask, and they should."
-          />
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+            <SectionIntro
+              tone="light"
+              eyebrow="Sustainability & compliance"
+              title="Sustainability is an audit trail, not a landing page."
+              body="We keep the certifications, the chemistry records and the utility data ready — because your compliance team will ask, and they should."
+            />
+            <Media
+              src={unsplash(IMAGES.organicRack.id, 900, 560)}
+              alt={IMAGES.organicRack.alt}
+              className="aspect-[16/10] w-full rounded-xl shadow-[0_28px_60px_-40px_rgba(0,0,0,0.5)]"
+              sizes="(max-width: 1024px) 100vw, 42vw"
+            />
+          </div>
           <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/15 bg-white/15 lg:grid-cols-4">
             {commitments.map((item) => (
               <div key={item.label} className="bg-sage-2 px-6 py-7">
@@ -81,16 +97,31 @@ export default function SustainabilityPage() {
           title="Six programs running right now."
           body="No pledges without a facility behind them. Every item below is operational in Ashulia today."
         />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {initiatives.map((item) => (
-            <article key={item.title} className="bg-paper p-8">
-              <p className="eyebrow text-sage">{item.tag}</p>
-              <h2 className="font-display mt-3 text-xl leading-snug tracking-tight text-ink">
-                {item.title}
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-mute">{item.text}</p>
-            </article>
-          ))}
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {initiatives.map((item) => {
+            const img = IMAGES[item.image];
+            return (
+              <article
+                key={item.title}
+                className="group overflow-hidden rounded-xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.5)]"
+              >
+                <Media
+                  src={unsplash(img.id, 700, 440)}
+                  alt={img.alt}
+                  className="aspect-[16/10] w-full"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="p-8">
+                  <p className="eyebrow text-sage">{item.tag}</p>
+                  <h2 className="font-display mt-3 text-xl leading-snug tracking-tight text-ink">
+                    {item.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-mute">{item.text}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 

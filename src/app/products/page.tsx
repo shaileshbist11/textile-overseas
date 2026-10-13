@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/icons";
+import { Media } from "@/components/media";
 import { ButtonLink, CtaBand, SectionIntro } from "@/components/ui";
 import { productCategories } from "@/lib/data";
+import { IMAGES, PRODUCT_CATEGORY_IMAGES, unsplash } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Product Divisions",
   description:
     "Knitwear, woven bottoms, outerwear, activewear, workwear and kidswear manufacturing programs — MOQs, lead times and fabric capability for each division.",
-};
-
-const toneCard: Record<string, string> = {
-  copper:
-    "bg-[radial-gradient(140%_140%_at_0%_0%,#e07b2f_0%,#c25e00_50%,#7c3d00_100%)]",
-  sage: "bg-[radial-gradient(140%_140%_at_0%_0%,#3f9d63_0%,#15803d_50%,#14532d_100%)]",
-  ink: "bg-[radial-gradient(140%_140%_at_0%_0%,#475569_0%,#1e293b_50%,#0f172a_100%)]",
-  sand: "bg-[radial-gradient(140%_140%_at_0%_0%,#e2c99b_0%,#c2a063_50%,#8a6c40_100%)]",
 };
 
 export default function ProductsPage() {
@@ -44,23 +38,30 @@ export default function ProductsPage() {
 
       <section className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {productCategories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/products/${cat.slug}`}
-              className="group overflow-hidden rounded-xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-30px_rgba(14,26,33,0.5)]"
-            >
-              <div
-                className={`relative flex h-40 items-end p-6 text-paper ${toneCard[cat.tone]}`}
+          {productCategories.map((cat) => {
+            const img = IMAGES[PRODUCT_CATEGORY_IMAGES[cat.slug]];
+            return (
+              <Link
+                key={cat.slug}
+                href={`/products/${cat.slug}`}
+                className="group overflow-hidden rounded-xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-30px_rgba(14,26,33,0.5)]"
               >
-                <span className="absolute inset-0 opacity-25 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_8px),repeating-linear-gradient(0deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_8px)]" />
-                <div className="relative">
-                  <h2 className="font-display text-2xl leading-tight tracking-tight">
-                    {cat.name}
-                  </h2>
-                  <p className="mt-1 text-sm text-white/75">{cat.short}</p>
+                <div className="relative h-44 w-full">
+                  <Media
+                    src={unsplash(img.id, 700, 440)}
+                    alt={img.alt}
+                    className="h-full w-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    overlay
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 text-paper">
+                    <h2 className="font-display text-2xl leading-tight tracking-tight">
+                      {cat.name}
+                    </h2>
+                    <p className="mt-1 text-sm text-white/75">{cat.short}</p>
+                  </div>
                 </div>
-              </div>
               <div className="p-6">
                 <p className="text-sm leading-6 text-mute line-clamp-3">{cat.description}</p>
                 <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4 text-sm">
@@ -78,8 +79,9 @@ export default function ProductsPage() {
                   <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>
 

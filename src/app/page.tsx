@@ -9,6 +9,7 @@ import {
   ScissorsIcon,
   ShieldIcon,
 } from "@/components/icons";
+import { Media } from "@/components/media";
 import {
   ButtonLink,
   CertStrip,
@@ -24,6 +25,12 @@ import {
   stats,
   testimonials,
 } from "@/lib/data";
+import {
+  CAPABILITY_IMAGES,
+  CATALOG_CATEGORY_IMAGES,
+  IMAGES,
+  unsplash,
+} from "@/lib/images";
 
 const iconMap = {
   scissors: ScissorsIcon,
@@ -33,20 +40,6 @@ const iconMap = {
   leaf: LeafIcon,
   globe: GlobeIcon,
 } as const;
-
-const heroTiles = [
-  { name: "Women's Wear", note: "Dresses, sets & woven blouses", tone: "clay" },
-  { name: "Denim", note: "Laser-finished jeans & jackets", tone: "navy" },
-  { name: "Organic Cotton", note: "GOTS certified programs", tone: "sage" },
-  { name: "Outerwear", note: "Puffers, softshells, gilets", tone: "sand" },
-] as const;
-
-const toneCard: Record<string, string> = {
-  clay: "bg-[radial-gradient(140%_140%_at_0%_0%,#e07b2f_0%,#c25e00_50%,#7c3d00_100%)]",
-  navy: "bg-[radial-gradient(140%_140%_at_0%_0%,#475569_0%,#1e293b_50%,#0f172a_100%)]",
-  sage: "bg-[radial-gradient(140%_140%_at_0%_0%,#3f9d63_0%,#15803d_50%,#14532d_100%)]",
-  sand: "bg-[radial-gradient(140%_140%_at_0%_0%,#e2c99b_0%,#c2a063_50%,#8a6c40_100%)]",
-};
 
 export default function Home() {
   return (
@@ -71,26 +64,20 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rise-2 relative" aria-hidden>
-            <div className="grid grid-cols-2 gap-4">
-              {heroTiles.map((tile, i) => (
-                <Link
-                  key={tile.name}
-                  href="/catalog"
-                  className={`group relative flex min-h-40 flex-col justify-end overflow-hidden rounded-2xl p-5 text-paper transition-transform duration-300 hover:-translate-y-1 sm:min-h-52 ${
-                    toneCard[tile.tone]
-                  } ${i % 2 === 1 ? "translate-y-8" : ""}`}
-                >
-                  <span className="absolute inset-0 opacity-30 [background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.08)_0_2px,transparent_2px_9px)]" />
-                  <span className="font-display relative text-xl leading-tight tracking-tight">
-                    {tile.name}
-                  </span>
-                  <span className="relative mt-1 text-xs text-white/70">{tile.note}</span>
-                  <span className="relative mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white/0 transition-colors group-hover:text-white/90">
-                    Explore <ArrowIcon className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              ))}
+          <div className="rise-2 relative">
+            <Media
+              src={unsplash(IMAGES.hero.id, 1200, 1500)}
+              alt={IMAGES.hero.alt}
+              className="aspect-[4/5] rounded-3xl shadow-[0_40px_80px_-40px_rgba(15,23,42,0.45)]"
+              sizes="(max-width: 1024px) 100vw, 44vw"
+              priority
+            />
+            <div className="absolute -bottom-6 -left-4 max-w-[16rem] rounded-2xl border border-line bg-white p-5 shadow-[0_24px_50px_-28px_rgba(15,23,42,0.45)] sm:-left-6">
+              <p className="eyebrow text-copper">Design &amp; tech pack</p>
+              <p className="font-display mt-2 text-3xl tracking-tight text-ink">48h</p>
+              <p className="mt-1 text-sm leading-6 text-mute">
+                Indicative FOB costing returned from your tech pack or reference sample.
+              </p>
             </div>
           </div>
         </div>
@@ -172,21 +159,33 @@ export default function Home() {
           </ButtonLink>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {catalogCategories.map((cat, i) => (
-            <Link
-              key={cat}
-              href="/catalog"
-              className={`group relative flex h-44 flex-col justify-end overflow-hidden rounded-2xl p-5 text-paper transition-transform duration-300 hover:-translate-y-1 ${
-                toneCard[["clay", "navy", "sage", "sand", "clay"][i]]
-              }`}
-            >
-              <span className="absolute inset-0 opacity-25 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_8px),repeating-linear-gradient(0deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_8px)]" />
-              <h3 className="font-display relative text-lg leading-tight tracking-tight">{cat}</h3>
-              <span className="relative mt-2 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white/0 transition-colors group-hover:text-white/90">
-                View <ArrowIcon className="h-3.5 w-3.5" />
-              </span>
-            </Link>
-          ))}
+          {catalogCategories.map((cat) => {
+            const img = IMAGES[CATALOG_CATEGORY_IMAGES[cat]];
+            return (
+              <Link
+                key={cat}
+                href="/catalog"
+                className="group relative flex h-44 flex-col justify-end overflow-hidden rounded-2xl p-5 text-paper transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="absolute inset-0">
+                  <Media
+                    src={unsplash(img.id, 600, 600)}
+                    alt={img.alt}
+                    className="h-full w-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                    overlay
+                  />
+                </div>
+                <h3 className="font-display relative text-lg leading-tight tracking-tight">
+                  {cat}
+                </h3>
+                <span className="relative mt-2 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white/0 transition-colors group-hover:text-white/90">
+                  View <ArrowIcon className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -206,16 +205,28 @@ export default function Home() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {capabilities.map((cap) => {
               const Icon = iconMap[cap.icon];
+              const img = IMAGES[CAPABILITY_IMAGES[cap.title]];
               return (
                 <article
                   key={cap.title}
-                  className="group rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-36px_rgba(15,23,42,0.5)]"
+                  className="group overflow-hidden rounded-2xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-36px_rgba(15,23,42,0.5)]"
                 >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-copper/10 text-copper transition-colors group-hover:bg-copper group-hover:text-white">
-                    <Icon className="h-5 w-5" aria-hidden />
-                  </span>
-                  <h3 className="font-display mt-5 text-lg tracking-tight text-ink">{cap.title}</h3>
-                  <p className="mt-2.5 text-sm leading-6 text-mute">{cap.text}</p>
+                  <Media
+                    src={unsplash(img.id, 700, 440)}
+                    alt={img.alt}
+                    className="aspect-[16/10] w-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="p-7">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-copper/10 text-copper transition-colors group-hover:bg-copper group-hover:text-white">
+                      <Icon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <h3 className="font-display mt-5 text-lg tracking-tight text-ink">
+                      {cap.title}
+                    </h3>
+                    <p className="mt-2.5 text-sm leading-6 text-mute">{cap.text}</p>
+                  </div>
                 </article>
               );
             })}
